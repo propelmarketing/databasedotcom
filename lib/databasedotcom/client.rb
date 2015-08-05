@@ -1,4 +1,4 @@
-require 'net/https'
+krequire 'net/https'
 require 'json'
 require 'net/http/post/multipart'
 require 'date'
@@ -200,9 +200,9 @@ module Databasedotcom
     # Returns a Collection of Sobjects of the class specified in the _soql_expr_, which is a valid SOQL[http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_soql.htm] expression. The objects will only be populated with the values of attributes specified in the query.
     #
     #    client.query("SELECT Name FROM Account") #=> [#<Account @Id=nil, @Name="Foo", ...>, #<Account @Id=nil, @Name="Bar", ...> ...]
-    def query(soql_expr, headers = {})
+    def query(soql_expr)
       print headers
-      result = http_get("/services/data/v#{self.version}/query", :q => soql_expr, :h => headers)
+      result = http_get("/services/data/v#{self.version}/query", :q => soql_expr, headers={"Sforce-Query-Options" => "batchSize=100"})
       collection_from(result.body)
     end
 
