@@ -287,6 +287,7 @@ module Databasedotcom
     def http_get(path, parameters={}, headers={})
       with_encoded_path_and_checked_response(path, parameters) do |encoded_path|
         https_request.get(encoded_path, {"Authorization" => "OAuth #{self.oauth_token}"}.merge(headers))
+        print {"Authorization" => "OAuth #{self.oauth_token}"}.merge(headers)
       end
     end
 
