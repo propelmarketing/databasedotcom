@@ -201,7 +201,7 @@ module Databasedotcom
     #
     #    client.query("SELECT Name FROM Account") #=> [#<Account @Id=nil, @Name="Foo", ...>, #<Account @Id=nil, @Name="Bar", ...> ...]
     def query(soql_expr)
-      result = http_get("/services/data/v#{self.version}/query", {:q => soql_expr}, {"Sforce-Query-Options" => "batchSize=100"})
+      result = http_get("/services/data/v#{self.version}/query", :q => soql_expr)
       collection_from(result.body)
     end
 
@@ -286,8 +286,7 @@ module Databasedotcom
     # HTTPSuccess- raises SalesForceError otherwise.
     def http_get(path, parameters={}, headers={})
       with_encoded_path_and_checked_response(path, parameters) do |encoded_path|
-        https_request.get(encoded_path, {"Authorization" => "OAuth #{self.oauth_token}"}.merge(headers))
-        print {"Authorization" => "OAuth #{self.oauth_token}"}.merge(headers)
+        https_request.get(encoded_path, {"Authorization" => "OAuth #{self.oauth_token}","Sforce-Query-Options" => "batchSize=100"}.merge(headers))
       end
     end
 
