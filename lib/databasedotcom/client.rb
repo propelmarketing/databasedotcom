@@ -1,4 +1,4 @@
-krequire 'net/https'
+require 'net/https'
 require 'json'
 require 'net/http/post/multipart'
 require 'date'
