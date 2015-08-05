@@ -286,7 +286,7 @@ module Databasedotcom
     # HTTPSuccess- raises SalesForceError otherwise.
     def http_get(path, parameters={}, headers={})
       with_encoded_path_and_checked_response(path, parameters) do |encoded_path|
-        https_request.get(encoded_path, {"Authorization" => "OAuth #{self.oauth_token}","Sforce-Query-Options" => "batchSize=100"}.merge(headers))
+        https_request.get(encoded_path, {"Authorization" => "OAuth #{self.oauth_token}","Sforce-Query-Options" => "batchSize=500"}.merge(headers))
       end
     end
 
