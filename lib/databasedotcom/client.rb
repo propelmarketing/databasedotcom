@@ -202,7 +202,7 @@ module Databasedotcom
     #    client.query("SELECT Name FROM Account") #=> [#<Account @Id=nil, @Name="Foo", ...>, #<Account @Id=nil, @Name="Bar", ...> ...]
     def query(soql_expr)
       print headers
-      result = http_get("/services/data/v#{self.version}/query", :q => soql_expr)
+      result = http_get("/services/data/v#{self.version}/query", :q => soql_expr, headers={"Sforce-Query-Options" => "batchSize=100"})
       collection_from(result.body)
     end
 
